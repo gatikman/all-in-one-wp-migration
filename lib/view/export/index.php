@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2014 ServMask Inc.
+ * Copyright (C) 2014-2019 ServMask Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,34 +22,24 @@
  * ███████║███████╗██║  ██║ ╚████╔╝ ██║ ╚═╝ ██║██║  ██║███████║██║  ██╗
  * ╚══════╝╚══════╝╚═╝  ╚═╝  ╚═══╝  ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'Kangaroos cannot jump here' );
+}
 ?>
 
 <div class="ai1wm-container">
 	<div class="ai1wm-row">
 		<div class="ai1wm-left">
-			<?php include AI1WM_TEMPLATES_PATH . '/common/maintenance-mode.php'; ?>
-
 			<div class="ai1wm-holder">
-				<?php foreach ( apply_filters( 'ai1wm-messages', array() ) as $type => $message ): ?>
-					<div class="ai1wm-message ai1wm-<?php echo $type; ?>-message">
-						<?php echo $message; ?>
-					</div>
-				<?php endforeach; ?>
-
-				<h1><i class="ai1wm-icon-export"></i> <?php _e( 'Export Site', AI1WM_PLUGIN_NAME ); ?></h1>
+				<h1>
+					<i class="ai1wm-icon-export"></i>
+					<?php _e( 'Export Site', AI1WM_PLUGIN_NAME ); ?>
+				</h1>
 
 				<?php include AI1WM_TEMPLATES_PATH . '/common/report-problem.php'; ?>
 
 				<form action="" method="post" id="ai1wm-export-form" class="ai1wm-clear">
-
-					<?php foreach ( $messages as $key => $text ): ?>
-						<div class="ai1wm-message ai1wm-info-message">
-							<a href="#" class="ai1wm-message-close-button" data-key="<?php echo $key; ?>">
-								<i class="ai1wm-icon-close"></i>
-							</a>
-							<?php echo $text; ?>
-						</div>
-					<?php endforeach; ?>
 
 					<?php include AI1WM_TEMPLATES_PATH . '/export/find-replace.php'; ?>
 
@@ -59,8 +49,12 @@
 
 					<?php include AI1WM_TEMPLATES_PATH . '/export/export-buttons.php'; ?>
 
-					<?php do_action( 'ai1wm_export_left_end' ); ?>
+					<input type="hidden" name="ai1wm_manual_export" value="1" />
+
 				</form>
+
+				<?php do_action( 'ai1wm_export_left_end' ); ?>
+
 			</div>
 		</div>
 		<div class="ai1wm-right">

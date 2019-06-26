@@ -1,245 +1,651 @@
 === All-in-One WP Migration ===
 Contributors: yani.iliev, bangelov, pimjitsawang
-Tags: db migration, migration, wordpress migration, db backup, db restore, website backup, website restore, website migration, website deploy, wordpress deploy, db backup, database export, database serialization, database find replace
+Tags: move, transfer, copy, migrate, backup, clone, restore, db migration, wordpress migration, website migration, database export, database import, apoyo, sauvegarde, di riserva, バックアップ
 Requires at least: 3.3
-Tested up to: 4.3
-Stable tag: 4.5
+Tested up to: 5.2
+Requires PHP: 5.2.17
+Stable tag: 6.97
 License: GPLv2 or later
 
-All-in-One WP Migration is the only tool that you will ever need to migrate a WordPress site.
+Move, transfer, copy, migrate, and backup a site with 1-click. Quick, easy, and reliable.
 
 == Description ==
-The plugin allows you to export your database, media files, plugins, and themes.
-You can apply unlimited find/replace operations on your database and the plugin will also fix any serialization problems that occur during find/replace operations.
+This plugin exports your WordPress website including the database, media files, plugins and themes with no technical knowledge required.
+Upload your site to a different location with a drag and drop in to WordPress.
+There is an option to apply an unlimited number of find and replace operations on your database during the export process. The plugin will also fix any
+serialisation problems that occur during the find/replace operation.
 
-All in One WP Plugin is the first plugin to offer true mobile experience on WordPress versions 3.3 and up.
+Mobile device compatible: All in One WP Plugin is the first plugin to offer true mobile experience on WordPress versions 3.3 and up.
 
-= Works on all hosting providers =
-* The plugin does not depend on any extensions, making it compatible with all PHP hosting providers.
-* The plugin exports and imports data in time chunks of 3 seconds each, which keeps the plugin below the max execution time that most providers set to 30 seconds.
-* We have tested the plugin on the major Linux distributions, Mac OS X, and Microsoft Windows.
+= No limitations on host or operating system =
+* We have tested the plugin on the major Linux distributions, MacOS and Microsoft Windows.
+* [Please see the list of hosting providers that we work with.](https://help.servmask.com/knowledgebase/supported-hosting-providers/)
 
 = Bypass all upload size restriction =
-* We use chunks to import your data and that way we bypass any webserver upload size restrictions up to **512MB** - commercial version supports up to **5GB**.
+* We use chunks to import your site data. Most providers set the maximum upload file size to 2MB. As the file restrictions are only applied to each chunk, webserver upload size restrictions are bypassed by keeping the chunks under 2MB to easily upload your entire site.
 
-= 0 Dependencies =
-* The plugin does not require any php extensions and can work with PHP v5.2.
+= Zero Dependencies =
+* The plugin does not require any PHP extensions and works with all versions of PHP from v5.2 onwards. This is great news for v5.2 users who are unsupported by many other products.
 
-= Support for MySQL, PDO, MySQLi =
+= Support for MySQL and MySQLi =
 * No matter what php mysql driver your webserver ships with, we support it.
 
-= Support WordPress v3.3 up to v4.2 =
-* We tested every WordPress version from `3.3` up to `4.2`.
+= Compatible with WordPress v3.3 to present =
+* We have a comprehensive Quality Assurance and testing process that ensures that the plugin is always compatible with the latest release of WordPress, but we don't support versions of WordPress prior to version 3.3 (2012)
 
-= Migrate WordPress to most popular cloud services using our completely new extensions =
+= WP-CLI Integration is available in Unlimited Extension =
+* [WP-CLI Integration Documentation](https://help.servmask.com/knowledgebase/cli-integration/)
+
+= Support =
+* For the community version of the plugin please watch the instruction videos below and see our FAQ.
+* If you have more complex requirements, our team is here to help. If you have any questions please feel free to get in touch at [help.servmask.com](https://help.servmask.com/)
+* All premium products include premium support.
+
+= Migrate WordPress to cloud storage services using our completely new premium extensions =
+**All of the Cloud Storage and Multisite extensions include premium support and the Unlimited extension free of charge**
+
+* [File](https://import.wp-migration.com)
+* [Unlimited](https://servmask.com/products/unlimited-extension)
 * [Dropbox](https://servmask.com/products/dropbox-extension)
+* [Multisite](https://servmask.com/products/multisite-extension)
+* [FTP](https://servmask.com/products/ftp-extension)
 * [Google Drive](https://servmask.com/products/google-drive-extension)
 * [Amazon S3](https://servmask.com/products/amazon-s3-extension)
-* [Multisite](https://servmask.com/products/multisite-extension)
-* [Unlimited](https://servmask.com/products/unlimited-extension)
-* And many more to come
+* [URL](https://servmask.com/products/url-extension)
+* [OneDrive](https://servmask.com/products/onedrive-extension)
+* [Box](https://servmask.com/products/box-extension)
+* [Mega](https://servmask.com/products/mega-extension)
+* [DigitalOcean Spaces](https://servmask.com/products/digitalocean-spaces-extension)
+* [Backblaze B2](https://servmask.com/products/backblaze-b2-extension)
+* [Google Cloud Storage](https://servmask.com/products/google-cloud-storage-extension)
+* [Microsoft Azure Storage](https://servmask.com/products/microsoft-azure-storage-extension)
+* [Amazon Glacier](https://servmask.com/products/amazon-glacier-extension)
+* [pCloud](https://servmask.com/products/pcloud-extension)
+* [WebDAV](https://servmask.com/products/webdav-extension)
+* [S3 Client](https://servmask.com/products/s3-client-extension)
+
+= Supported hosting providers =
+**The plugin does not have any dependencies, making it compatible with all PHP hosting providers. We support a vast range of hosting providers. Some of the most popular include:**
+
+* DigitalOcean
+* Bluehost
+* InMotion
+* Web Hosting Hub
+* Siteground
+* Pagely
+* Dreamhost
+* Justhost
+* GoDaddy
+* WP Engine
+* Site5
+* 1&1
+* Pantheon
+* [See the full list of supported providers here](https://help.servmask.com/knowledgebase/supported-hosting-providers/)
 
 = Contact us =
 * [Get free help from us here](https://servmask.com/help)
 * [Report a bug or request a feature](https://servmask.com/help)
 * [Find out more about us](https://servmask.com)
 
-[youtube http://www.youtube.com/watch?v=5FMzLf9a4Dc]
+[youtube http://www.youtube.com/watch?v=BpWxCeUWBOk]
+
+[youtube http://www.youtube.com/watch?v=mRp7qTFYKgs]
 
 == Installation ==
-1. Upload the `all-in-one-wp-migration` folder to the `/wp-content/plugins/` directory
-1. Activate the All in One WP Migration plugin through the 'Plugins' menu in WordPress
-1. Configure the plugin by going to the `Site Migration` menu that appears in your admin menu
+1. All-in-One WP Migration can be installed directly through your WordPress
+Plugins dashboard.
+1. Click "Add New" and Search for "All-in-One WP Migration"
+1. Install and Activate
+
+Alternatively you can download the plugin using the download button on this page and then upload the all-in-one-wp-migration folder to the /wp-content/plugins/ directory then activate throught the Plugins dashboard in WordPress
 
 == Screenshots ==
 1. Mobile Export page
 2. Mobile Import page
 3. Plugin Menu
 
+== Privacy Policy ==
+All-in-One WP Migration **asks for your consent** to collect **requester's email address** when filling plugin's contact form. [GDPR Compliant Privacy Policy](https://www.iubenda.com/privacy-policy/946881)
+
 == Changelog ==
-= 4.3 =
-* Add URL extension support
-* Filter "mu-plugins" directory if "Do not export plugins (files)" is checked
-* Fix utf8mb4 issue
-* Fix translation issue
+= 6.97 =
+**Added**
 
-= 4.2 =
-* Fix .wpress.bin format
+* ARIA support
 
-= 4.1 =
-* Add port to the host header on export/import
-* Rename .wpress file to .wpress.bin file
+**Fixed**
 
-= 4.0 =
-* Fix file permission checks
+* Download button position
 
-= 3.9 =
-* Fix could not resolve domain name on export/import
+= 6.96 =
+**Fixed**
 
-= 3.8 =
-* Fix undefined method on Backups page if PHP version is < 5.3.6
+* Delete failed import/exports older than 24 hours
 
-= 3.7 =
-* Add IPv6 support on export/import
+= 6.95 =
+**Changed**
 
-= 3.6 =
-* Fixed undefined constant warnings
+* Remove the cleanup of failed imports. It causes some of the imports to fail
 
-= 3.5 =
-* Exclude core plugin and extensions on export if they have custom names
+= 6.94 =
+**Fixed**
 
-= 3.4 =
-* Made export/import processes more reliable
-* Allow the plugin to work with non-default name
-* Preserve backups during plugin updates
-* Improved find & replace functionality on the serialized data
-* Removed backup file name restrictions
+* Decrease memory use during export and import of the database
+* Wait 5 seconds longer for servers to process export/import jobs
 
-= 3.3 =
-* Fixed a bug when retrieving export/import status progress
-* Fixed a bug when database encoding utf8mb4_unicode_ci is not available
+**Changed**
 
-= 3.2.2 =
-* Fixed plugin incompatibility during export/import that was reporting that the process could not be started
+* Removed emoticon from Import success screen
 
-= 3.2.1 =
-* Added username/password settings for WordPress sites behind HTTP basic authentication
-* Fixed a bug when exporting/importing without public DNS record
-* Fixed a bug when exporting/importing media files
+= 6.93 =
+**Changed**
 
-= 3.2.0 =
-* Added advanced settings on export page
+* Simplified the text on successful import
+* Improved the speed of exporting the database
 
-= 3.1.1 =
-* Fixed secret key issue on upgrade of the plugin
+**Removed**
 
-= 3.0.0 =
-* Added export to File, [Dropbox](https://servmask.com/products/dropbox-extension), [Amazon S3](https://servmask.com/products/amazon-s3-extension), [Google Drive](https://servmask.com/products/google-drive-extension)
-* Added import from File, [Dropbox](https://servmask.com/products/dropbox-extension), [Amazon S3](https://servmask.com/products/amazon-s3-extension), [Google Drive](https://servmask.com/products/google-drive-extension)
-* Implemented our own archiving format that reduces export and import by a factor of 10
-* One-click export with the new simplified export page
-* Improved upload functionality with auto-recognizing chunk size on import
-* New **Backups** page for storing all WordPress site exports
-* Easy restore WordPress site from **Backups** page
-* Monitoring availability of the disk space on the server
-* Both export and import happen in time chunks of 3 seconds
-* Plugin works behind HTTP basic authentication
+* Feedback option from the sidebar
 
-= 2.0.4 =
-* Updated readme to reflect that the plugin is not multisite compatible
+= 6.92 =
+**Added**
 
-= 2.0.3 =
-* Fixed a security issue while importing site using regular users
+* Workaround for PHP 7.3.2 bug when database export uses more memory https://bugs.php.net/bug.php?id=77597
 
-= 2.0.2 =
-* Added support for WordPress v4.0
+= 6.91 =
+**Changed**
 
-= 2.0.1 =
-* Fixed a bug when all user permissions are lost on import
+* Reverted monkey-patched fix for some GoDaddy hosting plans. The issue was fixed by GoDaddy yesterday
 
-= 2.0.0 =
-* Added support for migration of WordPress in Network Mode (Multi Site)
-* New improved UI and UX
-* New improved language translations on the menu items and help texts
-* Better error handling and notifications
-* Fixed a bug while exporting comments and associated comments meta data
-* Fixed a bug while using find/replace functionality
-* Fixed a bug with storage directory permissions and search indexation
+= 6.90 =
+**Changed**
 
-= 1.9.2 =
-* Added PHP <= v5.2.7 compatibility
+* Improved URL replacement
+* Improved compatibility with some of GoDaddy hosting plans
 
-= 1.9.1 =
-* Fixed an issue with earlier versions of PHP
+= 6.89 =
+**Changed**
 
-= 1.9.0 =
-* New improved design on the export/import page
-* Added an option for gathering user experience statistics
-* Added a message box with important notifications about the plugin
-* Fixed a bug while exporting database with multiple WordPress sites
-* Fixed a bug while exporting database with table constraints
-* Fixed a bug with auto recognizing zip archiver
+* Tested up to WordPress 5.1
 
-= 1.8.1 =
-* Added "Get Support" link in the plugin list page
-* Removed "All in One WP Migration Beta" link from the readme file
+= 6.88 =
+**Fixed**
 
-= 1.8.0 =
-* Added support for dynamically recognizing Site URL and Home URL on the import page
-* Fixed a bug when maximum uploaded size is exceeded
-* Fixed a bug while exporting big database tables
+* Table data type issue on export/import
+* PHP notice on custom backup labels
 
-= 1.7.2 =
-* Added support for automatically switching database adapters for better performance and optimization
-* Fixed a bug while using host:port syntax with MySQL PDO
-* Fixed a bug while using find/replace functionality
+= 6.87 =
+**Added**
 
-= 1.7.1 =
-* Fixed a bug while exporting WordPress plugins directory
+* Custom backup labels on Backups page
+* Support for OptimizePress
 
-= 1.7.0 =
-* Added storage layer to avoid permission issues with OS's directory used for temporary storage
-* Added additional checks to verify the consistency of the imported archive
-* Fixed a bug that caused the database to be exported without data
-* Removed unused variables from package.json file
+**Fixed**
 
-= 1.6.0 =
-* Added additional check for directory's permissions
-* Added additional check for output buffering when exporting a file
-* Fixed a bug when the archive was exported or imported with old version of Zlib library
-* Fixed a bug with permalinks and flushing the rules
+* Translation text on Import page
 
-= 1.5.0 =
-* Added support for additional errors and exceptions handling
-* Added support for reporting a problem in better and easier way
-* Improved support process in ZenDesk system for faster response time
-* Fixed typos on the import page. Thanks to Terry Heenan
+= 6.86 =
+**Added**
 
-= 1.4.0 =
-* Added a Twitter and Facebook share buttons to the sidebar on import and export pages
+* Support for MySQL BIT field type
 
-= 1.3.1 =
-* Fixed a bug when the user was unable to import site archive
-* Optimized and speeded up import process
+**Fixed**
 
-= 1.3.0 =
-* Added support for mysql connection to happen over sockets or TCP
-* Added support for Windows OS and fully tested the plugin on IIS
-* Added support for limited memory_limit - 1MB - The plugin now requires only 1MB to operate properly
-* Added support for multisite
-* Used mysql_unbuffered_query instead of mysql_query to overcome any memory problems
-* Fixed a deprecated warning for mysql_pconnect when php 5.5 and above is used
-* Fixed memory_limit problem with PCLZIP library
-* Fixed a bug when the archive is exported with zero size when using PCLZIP
-* Fixed a bug when the archive was exported broken on some servers
-* Fixed a deprecated usage of preg_replace \e in php v5.5 and above
+* WP CLI issue on export/import
 
-= 1.2.1 =
-* Fixed an issue when HTTP Error was shown on some hosts after import, credit to Michael Simon
-* Fixed an issue when exporting databases with different prefix than wp_, credit to najtrox
-* Fixed an issue when PDO is avalable but mysql driver for PDO is not, credit to Jaydesain69
-* Deleted a plugin specific option when uninstalling the plugin (clean after itself)
-* Support is done via Zendesk
-* Included WP Version and Plugin version in the feedback form
+= 6.85 =
+**Changed**
 
-= 1.2.0 =
-* Increased upload limit of files from 128MB to 512MB
-* Used ZipArchive with fallback to PclZip (a few users notified us that they don’t have ZipArchive enabled on their servers)
-* Used PDO with fallback to mysql (a few users notified us that they dont have PDO enabled on their servers, mysql is deprecated as of PHP v5.5 but we are supporting PHP v5.2.17)
-* Supported PHP v5.2.17 and WordPress v3.3 and above
-* Fixed a bug during export that causes plugins to not be exported on some hosts (the problem that you are experiencing)
+* Tested up to WordPress 5.1
 
-= 1.1.0 =
-* Importing files using chunks to overcome any webserver upload size restriction
-* Fixed a bug where HTTP code error was shown to some users
+= 6.84 =
+**Fixed**
 
-= 1.0.0 =
-* Export database as SQL file
-* Export media files
-* Export themes files
-* Export installed plugins
-* Unlimited find/replace actions
-* Option to exclude spam comments
-* Option to apply find/replace to GUIDs
-* Option to exclude post revisions
-* Option to exclude tables data
+* Set the type of backup file during download via HTML attribute
+* Removed Math_BigInteger class which was causing issues with other plugins
+
+= 6.83 =
+**Added**
+
+* Check for minimum required extension version on import
+* Disable Join My Multisite, MultiSite Clone Duplicator and WordPress MU Domain Mapping plugins after restoring a backup
+
+**Fixed**
+
+* Support for WordPress 3.3
+
+= 6.82 =
+**Added**
+
+* Support for PHP 7.3
+
+**Fixed**
+
+* Feedback form on settings page
+
+= 6.81 =
+**Added**
+
+* Support for S3 Compatible Storage Providers
+
+**Fixed**
+
+* Design issue with localized download button
+
+= 6.80 =
+**Added**
+
+* Additional escape characters from folder names
+
+**Fixed**
+
+* Corner case table prefix on export
+
+**Changed**
+
+* Tested up to WordPress 5.0
+
+= 6.79 =
+**Added**
+
+* File import has been re-added with limits imposed by server using wp_max_upload_size(). This article describes how to adjust the limits [How-to: Increase maximum upload file size](https://help.servmask.com/2018/10/27/how-to-increase-maximum-upload-file-size-in-wordpress/)
+* Clean storage directory of files and folders created more than 24 hours ago
+* Support for force-https-littlebizzy plugin
+* Support for wp-simple-firewall
+
+**Fixed**
+
+* The restore a backup message explains to users how to restore their backups without having to use an premium extension
+
+= 6.78 =
+**Added**
+
+* Support for WebDAV
+* Support for Muffin Builder 2.0
+* Display processed database records on large tables
+
+**Removed**
+
+* File import has been moved to its own free extension
+* WP CLI support is now in Unlimited Extension
+* Restore a backup is now in Unlimited Extension
+
+= 6.77 =
+**Added**
+
+* Support for pCloud
+
+**Fixed**
+
+* Respect user's profile language choice when localizing the plugin
+
+**Removed**
+
+* sanitize_option_siteurl and sanitize_option_home filters during import
+
+= 6.76 =
+**Added**
+
+* Support for Amazon Glacier
+* Support for BeTheme Responsive
+
+= 6.75 =
+**Fixed**
+
+* WP-CLI export/import missing data
+* Serialization in PHP 7.2
+* Missing <staticContent> entry in the web.config file
+
+= 6.74 =
+**Added**
+
+* Support for LiteSpeed web server
+* Fully localized the export, import, and restore processes
+
+**Fixed**
+
+* Table prefix replacement on import in limited corner cases
+* URL replacement in Bitnami
+
+= 6.73 =
+**Fixed**
+
+* Improvements to the export and import process
+
+= 6.72 =
+**Added**
+
+* Support for Microsoft Azure Storage
+
+**Fixed**
+
+* The plugin incorrectly reports Disk is full on some hostings
+
+= 6.71 =
+**Added**
+
+* Support for Google Cloud Storage
+
+**Fixed**
+
+* Improvements to the export and import process
+
+= 6.70 =
+**Added**
+
+* Support for Backblaze B2
+
+**Fixed**
+
+* Small improvements to the export process
+
+= 6.69 =
+**Added**
+
+* Support for RTL languages
+* Disable My Custom Widgets, WPS Hide Login and Endurance Page Cache plugins after restoring a backup
+
+**Changed**
+
+* Text on import steps
+
+= 6.68 =
+**Added**
+
+* Privacy policy section and link to GDPR Compliant Privacy Policy
+
+= 6.67 =
+**Changed**
+
+* Rename DigitalOcean to DigitalOcean Spaces Extension
+
+= 6.66 =
+**Added**
+
+* Notification class for sending emails on error (export/import)
+* Support for DigitalOcean Extension
+
+**Fixed**
+
+* Database regex pattern for parsing SQL queries
+
+= 6.65 =
+**Added**
+
+* New plugin icons on WP Admin Updates page
+
+**Fixed**
+
+* Table prefix replacement of subsite options table on export
+
+= 6.64 =
+**Added**
+
+* Deactivate Jetpack SSO module on import
+* Deactivate Invisible reCaptcha plugin on import
+
+= 6.63 =
+**Added**
+
+* Responsive design on export/import dropdown
+* Warning message when export site is using PHP 5.x and import site is using PHP 7.x
+
+**Fixed**
+
+* Wrong next backup date on Settings page
+* 🇯🇵 Japanese translation on Backups page
+
+**Changed**
+
+* Remove disabled cancel button on import
+
+= 6.62 =
+**Added**
+
+* Technical message if PHP is 32bit and backup is larger than 2GB on export
+* Technical message if db server is SQL Server on export/import
+
+**Fixed**
+
+* SQL regex pattern on import
+
+**Changed**
+
+* Confirmation message on import
+
+= 6.61 =
+**Added**
+
+* Disable wp-force-ssl plugin if current site is not SSL based on import
+* Support for Mega Extension
+
+= 6.60 =
+**Added**
+
+* Tested up to WordPress 4.9
+
+= 6.59 =
+**Added**
+
+* Disable wordpress-https plugin if current site is not SSL based on import
+* Support for Azure db on import
+* New button icons for cloud extensions
+
+= 6.58 =
+**Fixed**
+
+* Remove WP CLI commands on PHP 5.2 and below
+* Issue with files on export
+
+= 6.57 =
+**Added**
+
+* Disable really-simple-ssl plugin if current site is not SSL based on import
+* Support for WP-CLI
+
+= 6.56 =
+**Added**
+
+* Symlink directories on export
+* Support sub directories on Backups page
+* A cancel button on import confirm step
+
+**Fixed**
+
+* Support IE11
+* Wrong blogs.dir URL replacement
+* Wrong path network drive replacement (Windows)
+* Text placeholders of first find/replace inputs on export
+
+**Changed**
+
+* Added loading indicator to feedback and report a problem forms
+* Do not clear cache on export
+* Skip files that contain new line on export
+
+= 6.55 =
+**Added**
+
+* Percentage indicator on "Unpacking archive" step
+* Chunking mechanism when adding database.sql to wpress file on export
+
+**Changed**
+
+* Display 2GB+ value if file size cannot be obtained on Backups page
+* Move COMMIT condition after processing all table records
+
+**Fixed**
+
+* Directory separator of archiver on Windows
+
+= 6.54 =
+**Changed**
+
+* Use late row lookup to perform database export
+
+= 6.53 =
+**Added**
+
+* Warn the user when web server configuration files are not created
+
+**Changed**
+
+* Buffered queries instead of unbuffered queries
+* Relative URLs instead of absolute URLs when loading fonts and images
+
+= 6.52 =
+**Changed**
+
+* Remove temporary files on error
+
+**Fixed**
+
+* Incorrect subsite path replacement on import
+
+= 6.51 =
+**Added**
+
+* Validation on leave feedback, report issue and delete backup actions
+* More descriptive wpress file names on export
+
+**Changed**
+
+* Remove "Unable to authenticate with secret key" message
+
+**Fixed**
+
+* Wrong file size in wpress file on export
+
+= 6.50 =
+**Fixed**
+
+* Stuck on preparing to import
+
+= 6.49 =
+**Changed**
+
+* Plugin description in readme.txt
+
+= 6.48 =
+**Fixed**
+
+* Escape Find/Replace values on import
+* Unable to load CSS and JS when event hook contains capital letters
+
+= 6.47 =
+**Added**
+
+* Elementor plugin support
+
+**Fixed**
+
+* Site URL and Home URL replacement in JSON data
+
+= 6.46 =
+**Fixed**
+
+* Domain replacement on import
+* Invalid secret key check on import
+
+= 6.45 =
+**Changed**
+
+* Better mechanism when enumerating files on import
+
+**Fixed**
+
+* Validation mechanism on export/import
+
+= 6.44 =
+**Added**
+
+* PHP and DB version metadata in package.json
+* Find/Replace values in package.json
+* Internal Site URL and Internal Home URL in package.json
+* Confirmation mechanism when uploading chunk by chunk on import
+* Progress indicator on database export/import
+* Shutdown handler to catch fatal errors
+
+**Changed**
+
+* Replace TYPE with ENGINE keyword on database export
+* Detect Site URL and Home URL in Find/Replace values
+* Activate template and stylesheet on import
+* Import database chunk by chunk to avoid timeout limitation
+
+**Fixed**
+
+* An issue on export/import when using HipHop for PHP
+
+= 6.43 =
+**Changed**
+
+* Plugin tags and description
+
+= 6.42 =
+**Changed**
+
+* Improved performance when exporting database
+
+= 6.41 =
+**Added**
+
+* Support Visual Composer plugin
+* Support Jetpack Photon module
+
+**Changed**
+
+* Improved Maria DB support
+* Disable WordPress authentication checking during migration
+* Clean any temporary files after migration
+
+= 6.40 =
+**Added**
+
+* Separate action hook in advanced settings called "ai1wm_export_advanced_settings" to allow custom checkbox options on export
+
+**Changed**
+
+* Do not extract dropins files on import
+* Do not exclude active plugins in package.json and multisite.json on export
+* Do not show "Resolving URL address..." on export/import
+
+**Fixed**
+
+* An issue with large files on import
+* An issue with inactive plugins option in advanced settings on export
+
+= 6.39 =
+**Added**
+
+* Support for MariaDB
+
+**Changed**
+
+* Do not include package.json, multisite.json, blogs.json, database.sql and filemap.list files on export
+* Remove HTTP Basic authentication from Backups page
+
+**Fixed**
+
+* An issue with unpacking archive on import
+* An issue with inactivated plugins on import
+
+= 6.38 =
+**Added**
+
+* Support for HyperDB plugin
+* Support for RevSlider plugin
+* Check available disk space during export/import
+* Support very restricted hosting environments
+* WPRESS mime-type to web.config when the server is IIS
+
+**Changed**
+
+* Switch to AJAX from cURL on export/import
+* Respect WordPress constants FS_CHMOD_DIR and FS_CHMOD_FILE on import
+* Remove misleading available disk space information on "Backups" page
+
+**Fixed**
+
+* An issue related to generating archive and folder names
+* An issue related to CSS styles on export page

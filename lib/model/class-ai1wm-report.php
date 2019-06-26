@@ -1,7 +1,6 @@
 <?php
-
 /**
- * Copyright (C) 2014 ServMask Inc.
+ * Copyright (C) 2014-2019 ServMask Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,44 +22,49 @@
  * ███████║███████╗██║  ██║ ╚████╔╝ ██║ ╚═╝ ██║██║  ██║███████║██║  ██╗
  * ╚══════╝╚══════╝╚═╝  ╚═╝  ╚═══╝  ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'Kangaroos cannot jump here' );
+}
+
 class Ai1wm_Report {
 
 	/**
-	 * Submit customer report to ServMask.com
+	 * Submit customer report to servmask.com
 	 *
-	 * @param  string  $email   User E-mail
-	 * @param  string  $message User Message
-	 * @param  integer $terms   User Accept Terms
+	 * @param  string  $email   User e-mail
+	 * @param  string  $message User message
+	 * @param  integer $terms   User accept terms
 	 *
 	 * @return array
 	 */
-	public function report_problem( $email, $message, $terms ) {
+	public function add( $email, $message, $terms ) {
 		$errors = array();
+
 		// Submit report to ServMask
 		if ( ! filter_var( $email, FILTER_VALIDATE_EMAIL ) ) {
-			$errors[] = 'Your email is not valid.';
-		} else if ( empty( $message ) ) {
-			$errors[] = 'Please enter comments in the text area.';
-		} else if ( ! $terms ) {
-			$errors[] = 'Please accept report term conditions.';
+			$errors[] = __( 'Your email is not valid.', AI1WM_PLUGIN_NAME );
+		} elseif ( empty( $message ) ) {
+			$errors[] = __( 'Please enter comments in the text area.', AI1WM_PLUGIN_NAME );
+		} elseif ( empty( $terms ) ) {
+			$errors[] = __( 'Please accept report term conditions.', AI1WM_PLUGIN_NAME );
 		} else {
 			$response = wp_remote_post(
 				AI1WM_REPORT_URL,
 				array(
-					'body' => array(
-						'email'             => $email,
-						'message'           => $message,
-						'export_options'    => json_encode( get_site_option( AI1WM_EXPORT_OPTIONS, array() ) ),
-						'error_handler'     => json_encode( get_site_option( AI1WM_ERROR_HANDLER, array() ) ),
-						'exception_handler' => json_encode( get_site_option( AI1WM_EXCEPTION_HANDLER, array() ) ),
+					'timeout' => 15,
+					'body'    => array(
+						'email'   => $email,
+						'message' => $message,
 					),
 				)
 			);
+
 			if ( is_wp_error( $response ) ) {
-				$errors[] = 'Something went wrong: ' . $response->get_error_message();
+				$errors[] = sprintf( __( 'Something went wrong: %s', AI1WM_PLUGIN_NAME ), $response->get_error_message() );
 			}
 		}
 
-		return array( 'errors' => $errors );
+		return $errors;
 	}
 }

@@ -1,7 +1,6 @@
 <?php
-
 /**
- * Copyright (C) 2014 ServMask Inc.
+ * Copyright (C) 2014-2019 ServMask Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,48 +22,55 @@
  * ███████║███████╗██║  ██║ ╚████╔╝ ██║ ╚═╝ ██║██║  ██║███████║██║  ██╗
  * ╚══════╝╚══════╝╚═╝  ╚═╝  ╚═══╝  ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'Kangaroos cannot jump here' );
+}
+
 class Ai1wm_Feedback {
 
 	/**
-	 * Submit customer feedback to ServMask.com
+	 * Submit customer feedback to servmask.com
 	 *
-	 * @param  string  $type    Feedback Type
-	 * @param  string  $email   User E-mail
-	 * @param  string  $message User Message
-	 * @param  integer $terms   User Accept Terms
+	 * @param  string  $type      Feedback type
+	 * @param  string  $email     User e-mail
+	 * @param  string  $message   User message
+	 * @param  integer $terms     User accept terms
+	 * @param  string  $purchases Purchases IDs
 	 *
 	 * @return array
 	 */
-	public function leave_feedback( $type, $email, $message, $terms ) {
+	public function add( $type, $email, $message, $terms, $purchases ) {
 		$errors = array();
+
 		// Submit feedback to ServMask
 		if ( empty( $type ) ) {
-			$errors[] = 'Feedback type is invalid.';
-		} else if ( ! filter_var( $email, FILTER_VALIDATE_EMAIL ) ) {
-			$errors[] = 'Your email is not valid.';
-		} else if ( empty( $message ) ) {
-			$errors[] = 'Please enter comments in the text area.';
-		} else if ( ! $terms ) {
-			$errors[] = 'Please accept feedback term conditions.';
+			$errors[] = __( 'Feedback type is not valid.', AI1WM_PLUGIN_NAME );
+		} elseif ( ! filter_var( $email, FILTER_VALIDATE_EMAIL ) ) {
+			$errors[] = __( 'Your email is not valid.', AI1WM_PLUGIN_NAME );
+		} elseif ( empty( $message ) ) {
+			$errors[] = __( 'Please enter comments in the text area.', AI1WM_PLUGIN_NAME );
+		} elseif ( empty( $terms ) ) {
+			$errors[] = __( 'Please accept feedback term conditions.', AI1WM_PLUGIN_NAME );
 		} else {
 			$response = wp_remote_post(
 				AI1WM_FEEDBACK_URL,
 				array(
-					'body' => array(
-						'type'              => $type,
-						'email'             => $email,
-						'message'           => $message,
-						'export_options'    => json_encode( get_site_option( AI1WM_EXPORT_OPTIONS, array() ) ),
-						'error_handler'     => json_encode( get_site_option( AI1WM_ERROR_HANDLER, array() ) ),
-						'exception_handler' => json_encode( get_site_option( AI1WM_EXCEPTION_HANDLER, array() ) ),
+					'timeout' => 15,
+					'body'    => array(
+						'type'      => $type,
+						'email'     => $email,
+						'message'   => $message,
+						'purchases' => $purchases,
 					),
 				)
 			);
+
 			if ( is_wp_error( $response ) ) {
-				$errors[] = 'Something went wrong: ' . $response->get_error_message();
+				$errors[] = sprintf( __( 'Something went wrong: %s', AI1WM_PLUGIN_NAME ), $response->get_error_message() );
 			}
 		}
 
-		return array( 'errors' => $errors );
+		return $errors;
 	}
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2014 ServMask Inc.
+ * Copyright (C) 2014-2019 ServMask Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,17 +23,11 @@
  * ╚══════╝╚══════╝╚═╝  ╚═╝  ╚═══╝  ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝
  */
 
-// include all the files that you want to load in here
-require_once AI1WM_VENDOR_PATH .
-			DIRECTORY_SEPARATOR .
-			'mysqldump-factory' .
-			DIRECTORY_SEPARATOR .
-			'mysqldump-factory' .
-			DIRECTORY_SEPARATOR .
-			'lib' .
-			DIRECTORY_SEPARATOR .
-			'MysqlDumpFactory.php';
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'Kangaroos cannot jump here' );
+}
 
+// Include all the files that you want to load in here
 require_once AI1WM_VENDOR_PATH .
 			DIRECTORY_SEPARATOR .
 			'bandar' .
@@ -44,6 +38,33 @@ require_once AI1WM_VENDOR_PATH .
 			DIRECTORY_SEPARATOR .
 			'Bandar.php';
 
+
+if ( defined( 'WP_CLI' ) ) {
+	require_once AI1WM_VENDOR_PATH .
+				DIRECTORY_SEPARATOR .
+				'servmask' .
+				DIRECTORY_SEPARATOR .
+				'command' .
+				DIRECTORY_SEPARATOR .
+				'class-ai1wm-wp-cli-command.php';
+}
+
+require_once AI1WM_VENDOR_PATH .
+			DIRECTORY_SEPARATOR .
+			'servmask' .
+			DIRECTORY_SEPARATOR .
+			'filesystem' .
+			DIRECTORY_SEPARATOR .
+			'class-ai1wm-directory.php';
+
+require_once AI1WM_VENDOR_PATH .
+			DIRECTORY_SEPARATOR .
+			'servmask' .
+			DIRECTORY_SEPARATOR .
+			'filesystem' .
+			DIRECTORY_SEPARATOR .
+			'class-ai1wm-file.php';
+
 require_once AI1WM_VENDOR_PATH .
 			DIRECTORY_SEPARATOR .
 			'servmask' .
@@ -51,6 +72,22 @@ require_once AI1WM_VENDOR_PATH .
 			'filesystem' .
 			DIRECTORY_SEPARATOR .
 			'class-ai1wm-file-index.php';
+
+require_once AI1WM_VENDOR_PATH .
+			DIRECTORY_SEPARATOR .
+			'servmask' .
+			DIRECTORY_SEPARATOR .
+			'filesystem' .
+			DIRECTORY_SEPARATOR .
+			'class-ai1wm-file-htaccess.php';
+
+require_once AI1WM_VENDOR_PATH .
+			DIRECTORY_SEPARATOR .
+			'servmask' .
+			DIRECTORY_SEPARATOR .
+			'filesystem' .
+			DIRECTORY_SEPARATOR .
+			'class-ai1wm-file-webconfig.php';
 
 require_once AI1WM_VENDOR_PATH .
 			DIRECTORY_SEPARATOR .
@@ -65,8 +102,16 @@ require_once AI1WM_VENDOR_PATH .
 			'servmask' .
 			DIRECTORY_SEPARATOR .
 			'iterator' .
-			 DIRECTORY_SEPARATOR .
+			DIRECTORY_SEPARATOR .
 			'class-ai1wm-recursive-directory-iterator.php';
+
+require_once AI1WM_VENDOR_PATH .
+			DIRECTORY_SEPARATOR .
+			'servmask' .
+			DIRECTORY_SEPARATOR .
+			'iterator' .
+			DIRECTORY_SEPARATOR .
+			'class-ai1wm-recursive-iterator-iterator.php';
 
 require_once AI1WM_VENDOR_PATH .
 			DIRECTORY_SEPARATOR .
@@ -74,7 +119,7 @@ require_once AI1WM_VENDOR_PATH .
 			DIRECTORY_SEPARATOR .
 			'filter' .
 			DIRECTORY_SEPARATOR .
-			'class-ai1wm-extension-filter.php';
+			'class-ai1wm-recursive-extension-filter.php';
 
 require_once AI1WM_VENDOR_PATH .
 			DIRECTORY_SEPARATOR .
@@ -108,13 +153,41 @@ require_once AI1WM_VENDOR_PATH .
 			DIRECTORY_SEPARATOR .
 			'class-ai1wm-extractor.php';
 
-require_once AI1WM_CONTROLLER_PATH .
+require_once AI1WM_VENDOR_PATH .
 			DIRECTORY_SEPARATOR .
-			'class-ai1wm-main-controller.php';
+			'servmask' .
+			DIRECTORY_SEPARATOR .
+			'database' .
+			DIRECTORY_SEPARATOR .
+			'class-ai1wm-database.php';
+
+require_once AI1WM_VENDOR_PATH .
+			DIRECTORY_SEPARATOR .
+			'servmask' .
+			DIRECTORY_SEPARATOR .
+			'database' .
+			DIRECTORY_SEPARATOR .
+			'class-ai1wm-database-mysql.php';
+
+require_once AI1WM_VENDOR_PATH .
+			DIRECTORY_SEPARATOR .
+			'servmask' .
+			DIRECTORY_SEPARATOR .
+			'database' .
+			DIRECTORY_SEPARATOR .
+			'class-ai1wm-database-mysqli.php';
+
+require_once AI1WM_VENDOR_PATH .
+			DIRECTORY_SEPARATOR .
+			'servmask' .
+			DIRECTORY_SEPARATOR .
+			'database' .
+			DIRECTORY_SEPARATOR .
+			'class-ai1wm-database-utility.php';
 
 require_once AI1WM_CONTROLLER_PATH .
 			DIRECTORY_SEPARATOR .
-			'class-ai1wm-import-controller.php';
+			'class-ai1wm-main-controller.php';
 
 require_once AI1WM_CONTROLLER_PATH .
 			DIRECTORY_SEPARATOR .
@@ -122,7 +195,19 @@ require_once AI1WM_CONTROLLER_PATH .
 
 require_once AI1WM_CONTROLLER_PATH .
 			DIRECTORY_SEPARATOR .
-			'class-ai1wm-backup-controller.php';
+			'class-ai1wm-import-controller.php';
+
+require_once AI1WM_CONTROLLER_PATH .
+			DIRECTORY_SEPARATOR .
+			'class-ai1wm-status-controller.php';
+
+require_once AI1WM_CONTROLLER_PATH .
+			DIRECTORY_SEPARATOR .
+			'class-ai1wm-backups-controller.php';
+
+require_once AI1WM_CONTROLLER_PATH .
+			DIRECTORY_SEPARATOR .
+			'class-ai1wm-updater-controller.php';
 
 require_once AI1WM_CONTROLLER_PATH .
 			DIRECTORY_SEPARATOR .
@@ -132,25 +217,113 @@ require_once AI1WM_CONTROLLER_PATH .
 			DIRECTORY_SEPARATOR .
 			'class-ai1wm-report-controller.php';
 
-require_once AI1WM_CONTROLLER_PATH .
+require_once AI1WM_EXPORT_PATH .
 			DIRECTORY_SEPARATOR .
-			'class-ai1wm-message-controller.php';
+			'class-ai1wm-export-init.php';
+
+require_once AI1WM_EXPORT_PATH .
+			DIRECTORY_SEPARATOR .
+			'class-ai1wm-export-compatibility.php';
+
+require_once AI1WM_EXPORT_PATH .
+			DIRECTORY_SEPARATOR .
+			'class-ai1wm-export-archive.php';
+
+require_once AI1WM_EXPORT_PATH .
+			DIRECTORY_SEPARATOR .
+			'class-ai1wm-export-config.php';
+
+require_once AI1WM_EXPORT_PATH .
+			DIRECTORY_SEPARATOR .
+			'class-ai1wm-export-config-file.php';
+
+require_once AI1WM_EXPORT_PATH .
+			DIRECTORY_SEPARATOR .
+			'class-ai1wm-export-enumerate.php';
+
+require_once AI1WM_EXPORT_PATH .
+			DIRECTORY_SEPARATOR .
+			'class-ai1wm-export-content.php';
+
+require_once AI1WM_EXPORT_PATH .
+			DIRECTORY_SEPARATOR .
+			'class-ai1wm-export-database.php';
+
+require_once AI1WM_EXPORT_PATH .
+			DIRECTORY_SEPARATOR .
+			'class-ai1wm-export-database-file.php';
+
+require_once AI1WM_EXPORT_PATH .
+			DIRECTORY_SEPARATOR .
+			'class-ai1wm-export-download.php';
+
+require_once AI1WM_EXPORT_PATH .
+			DIRECTORY_SEPARATOR .
+			'class-ai1wm-export-clean.php';
+
+require_once AI1WM_IMPORT_PATH .
+			DIRECTORY_SEPARATOR .
+			'class-ai1wm-import-compatibility.php';
+
+require_once AI1WM_IMPORT_PATH .
+			DIRECTORY_SEPARATOR .
+			'class-ai1wm-import-upload.php';
+
+require_once AI1WM_IMPORT_PATH .
+			DIRECTORY_SEPARATOR .
+			'class-ai1wm-import-validate.php';
+
+require_once AI1WM_IMPORT_PATH .
+			DIRECTORY_SEPARATOR .
+			'class-ai1wm-import-blogs.php';
+
+require_once AI1WM_IMPORT_PATH .
+			DIRECTORY_SEPARATOR .
+			'class-ai1wm-import-confirm.php';
+
+require_once AI1WM_IMPORT_PATH .
+			DIRECTORY_SEPARATOR .
+			'class-ai1wm-import-enumerate.php';
+
+require_once AI1WM_IMPORT_PATH .
+			DIRECTORY_SEPARATOR .
+			'class-ai1wm-import-content.php';
+
+require_once AI1WM_IMPORT_PATH .
+			DIRECTORY_SEPARATOR .
+			'class-ai1wm-import-mu-plugins.php';
+
+require_once AI1WM_IMPORT_PATH .
+			DIRECTORY_SEPARATOR .
+			'class-ai1wm-import-database.php';
+
+require_once AI1WM_IMPORT_PATH .
+			DIRECTORY_SEPARATOR .
+			'class-ai1wm-import-done.php';
+
+require_once AI1WM_IMPORT_PATH .
+			DIRECTORY_SEPARATOR .
+			'class-ai1wm-import-clean.php';
 
 require_once AI1WM_MODEL_PATH .
 			DIRECTORY_SEPARATOR .
-			'class-ai1wm-backup.php';
+			'class-ai1wm-deprecated.php';
 
 require_once AI1WM_MODEL_PATH .
 			DIRECTORY_SEPARATOR .
-			'class-ai1wm-error.php';
+			'class-ai1wm-extensions.php';
 
 require_once AI1WM_MODEL_PATH .
 			DIRECTORY_SEPARATOR .
-			'class-ai1wm-export-abstract.php';
+			'class-ai1wm-compatibility.php';
 
 require_once AI1WM_MODEL_PATH .
 			DIRECTORY_SEPARATOR .
-			'class-ai1wm-export-file.php';
+			'class-ai1wm-backups.php';
+
+require_once AI1WM_MODEL_PATH .
+			DIRECTORY_SEPARATOR .
+			'class-ai1wm-updater.php';
 
 require_once AI1WM_MODEL_PATH .
 			DIRECTORY_SEPARATOR .
@@ -158,31 +331,11 @@ require_once AI1WM_MODEL_PATH .
 
 require_once AI1WM_MODEL_PATH .
 			DIRECTORY_SEPARATOR .
-			'class-ai1wm-import-abstract.php';
-
-require_once AI1WM_MODEL_PATH .
-			DIRECTORY_SEPARATOR .
-			'class-ai1wm-import-file.php';
-
-require_once AI1WM_MODEL_PATH .
-			DIRECTORY_SEPARATOR .
-			'class-ai1wm-log.php';
-
-require_once AI1WM_MODEL_PATH .
-			DIRECTORY_SEPARATOR .
-			'class-ai1wm-logger.php';
-
-require_once AI1WM_MODEL_PATH .
-			DIRECTORY_SEPARATOR .
-			'class-ai1wm-maintenance.php';
-
-require_once AI1WM_MODEL_PATH .
-			DIRECTORY_SEPARATOR .
-			'class-ai1wm-message.php';
-
-require_once AI1WM_MODEL_PATH .
-			DIRECTORY_SEPARATOR .
 			'class-ai1wm-report.php';
+
+require_once AI1WM_MODEL_PATH .
+			DIRECTORY_SEPARATOR .
+			'class-ai1wm-template.php';
 
 require_once AI1WM_MODEL_PATH .
 			DIRECTORY_SEPARATOR .
@@ -190,52 +343,16 @@ require_once AI1WM_MODEL_PATH .
 
 require_once AI1WM_MODEL_PATH .
 			DIRECTORY_SEPARATOR .
-			'class-ai1wm-storage.php';
+			'class-ai1wm-log.php';
 
 require_once AI1WM_MODEL_PATH .
 			DIRECTORY_SEPARATOR .
-			'class-ai1wm-template.php';
+			'class-ai1wm-message.php';
 
-require_once AI1WM_SERVICE_PATH .
+require_once AI1WM_MODEL_PATH .
 			DIRECTORY_SEPARATOR .
-			'class-ai1wm-service-interface.php';
+			'class-ai1wm-notification.php';
 
-require_once AI1WM_SERVICE_PATH .
+require_once AI1WM_MODEL_PATH .
 			DIRECTORY_SEPARATOR .
-			'class-ai1wm-service-database.php';
-
-require_once AI1WM_SERVICE_PATH .
-			DIRECTORY_SEPARATOR .
-			'class-ai1wm-service-package.php';
-
-require_once AI1WM_EXCEPTION_PATH .
-			DIRECTORY_SEPARATOR .
-			'class-ai1wm-backup-exception.php';
-
-require_once AI1WM_EXCEPTION_PATH .
-			DIRECTORY_SEPARATOR .
-			'class-ai1wm-export-exception.php';
-
-require_once AI1WM_EXCEPTION_PATH .
-			DIRECTORY_SEPARATOR .
-			'class-ai1wm-import-exception.php';
-
-require_once AI1WM_EXCEPTION_PATH .
-			DIRECTORY_SEPARATOR .
-			'class-ai1wm-not-accessible-exception.php';
-
-require_once AI1WM_EXCEPTION_PATH .
-			DIRECTORY_SEPARATOR .
-			'class-ai1wm-not-found-exception.php';
-
-require_once AI1WM_EXCEPTION_PATH .
-			DIRECTORY_SEPARATOR .
-			'class-ai1wm-not-readable-exception.php';
-
-require_once AI1WM_EXCEPTION_PATH .
-			DIRECTORY_SEPARATOR .
-			'class-ai1wm-not-writable-exception.php';
-
-require_once AI1WM_EXCEPTION_PATH .
-			DIRECTORY_SEPARATOR .
-			'class-ai1wm-storage-exception.php';
+			'class-ai1wm-handler.php';

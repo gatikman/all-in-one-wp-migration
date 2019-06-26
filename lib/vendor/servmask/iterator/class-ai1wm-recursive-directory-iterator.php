@@ -1,7 +1,6 @@
 <?php
-
 /**
- * Copyright (C) 2014 ServMask Inc.
+ * Copyright (C) 2014-2019 ServMask Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,27 +22,48 @@
  * ███████║███████╗██║  ██║ ╚████╔╝ ██║ ╚═╝ ██║██║  ██║███████║██║  ██╗
  * ╚══════╝╚══════╝╚═╝  ╚═╝  ╚═══╝  ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝
  */
-class Ai1wm_Recursive_Directory_Iterator extends RecursiveDirectoryIterator {
 
-	protected $exclude = array();
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'Kangaroos cannot jump here' );
+}
+
+class Ai1wm_Recursive_Directory_Iterator extends RecursiveDirectoryIterator {
 
 	public function __construct( $path ) {
 		parent::__construct( $path );
+
+		// Skip current and parent directory
 		$this->skipdots();
 	}
 
 	public function rewind() {
 		parent::rewind();
+
+		// Skip current and parent directory
 		$this->skipdots();
 	}
 
 	public function next() {
 		parent::next();
+
+		// Skip current and parent directory
 		$this->skipdots();
 	}
 
+	/**
+	 * Returns whether current entry is a directory and not '.' or '..'
+	 *
+	 * Explicitly set allow links flag, because RecursiveDirectoryIterator::FOLLOW_SYMLINKS
+	 * is not supported by <= PHP 5.3.0
+	 *
+	 * @return bool
+	 */
+	public function hasChildren( $allow_links = true ) {
+		return parent::hasChildren( $allow_links );
+	}
+
 	protected function skipdots() {
-		while ($this->isDot()) {
+		while ( $this->isDot() ) {
 			parent::next();
 		}
 	}

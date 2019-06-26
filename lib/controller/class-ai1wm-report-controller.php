@@ -1,7 +1,6 @@
 <?php
-
 /**
- * Copyright (C) 2014 ServMask Inc.
+ * Copyright (C) 2014-2019 ServMask Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,31 +22,57 @@
  * ███████║███████╗██║  ██║ ╚████╔╝ ██║ ╚═╝ ██║██║  ██║███████║██║  ██╗
  * ╚══════╝╚══════╝╚═╝  ╚═╝  ╚═══╝  ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'Kangaroos cannot jump here' );
+}
+
 class Ai1wm_Report_Controller {
 
-	public static function report_problem() {
-		// Set E-mail
+	public static function report( $params = array() ) {
+
+		// Set params
+		if ( empty( $params ) ) {
+			$params = stripslashes_deep( $_POST );
+		}
+
+		// Set secret key
+		$secret_key = null;
+		if ( isset( $params['secret_key'] ) ) {
+			$secret_key = trim( $params['secret_key'] );
+		}
+
+		// Set e-mail
 		$email = null;
-		if ( isset( $_POST['email'] ) ) {
-			$email = trim( $_POST['email'] );
+		if ( isset( $params['ai1wm_email'] ) ) {
+			$email = trim( $params['ai1wm_email'] );
 		}
 
-		// Set Message
+		// Set message
 		$message = null;
-		if ( isset( $_POST['message'] ) ) {
-			$message = trim( $_POST['message'] );
+		if ( isset( $params['ai1wm_message'] ) ) {
+			$message = trim( $params['ai1wm_message'] );
 		}
 
-		// Set Terms
+		// Set terms
 		$terms = false;
-		if ( isset( $_POST['terms'] ) ) {
-			$terms = (bool) $_POST['terms'];
+		if ( isset( $params['ai1wm_terms'] ) ) {
+			$terms = (bool) $params['ai1wm_terms'];
 		}
 
-		// Send Feedback
-		$model  = new Ai1wm_Report;
-		$result = $model->report_problem( $email, $message, $terms );
-		echo json_encode( $result );
+		try {
+			// Ensure that unauthorized people cannot access report action
+			ai1wm_verify_secret_key( $secret_key );
+		} catch ( Ai1wm_Not_Valid_Secret_Key_Exception $e ) {
+			exit;
+		}
+
+		$model = new Ai1wm_Report;
+
+		// Send report
+		$errors = $model->add( $email, $message, $terms );
+
+		echo json_encode( array( 'errors' => $errors ) );
 		exit;
 	}
 }

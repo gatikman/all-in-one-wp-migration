@@ -1,7 +1,6 @@
 <?php
-
 /**
- * Copyright (C) 2014 ServMask Inc.
+ * Copyright (C) 2014-2019 ServMask Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,73 +22,42 @@
  * ███████║███████╗██║  ██║ ╚████╔╝ ██║ ╚═╝ ██║██║  ██║███████║██║  ██╗
  * ╚══════╝╚══════╝╚═╝  ╚═╝  ╚═══╝  ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'Kangaroos cannot jump here' );
+}
+
 class Ai1wm_Message {
 
-	protected $messages = array();
-
-	public function __construct() {
-		$this->messages = array(
-			'SiteURLDepricated' => __(
-				'Since version 1.8.0, Site URL is deprecated.' .
-				'Upon import, the plugin auto-detects Site URL and makes necessary changes to the database.',
-				AI1WM_PLUGIN_NAME
-			),
-		);
-
-		// Prepare messages
-		$msgs = array();
-		$keys = get_site_option( AI1WM_MESSAGES );
-		foreach ( array_keys( $this->messages ) as $key ) {
-			if ( ! isset( $keys[ $key ] ) ) {
-				$msgs[ $key ] = true;
-			}
+	public static function flash( $type, $message ) {
+		if ( ( $messages = get_option( AI1WM_MESSAGES, array() ) ) !== false ) {
+			return update_option( AI1WM_MESSAGES, array_merge( $messages, array( $type => $message ) ) );
 		}
 
-		// Update messages
-		if ( $msgs ) {
-			update_site_option( AI1WM_MESSAGES, $msgs );
-		}
+		return false;
 	}
 
-	/**
-	 * Get list of all active messages
-	 *
-	 * @return array
-	 */
-	public function get_messages() {
-		$msgs = array();
-		$keys = get_site_option( AI1WM_MESSAGES );
-		foreach ( $keys as $key => $active ) {
-			if ( isset( $this->messages[ $key ] ) && $active ) {
-				$msgs[ $key ] = $this->messages[ $key ];
+	public static function has( $type ) {
+		if ( ( $messages = get_option( AI1WM_MESSAGES, array() ) ) ) {
+			if ( isset( $messages[ $type ] ) ) {
+				return true;
 			}
 		}
 
-		return $msgs;
+		return false;
 	}
 
-	/**
-	 * Close message by key
-	 *
-	 * @param  string $key Message key
-	 *
-	 * @return array
-	 */
-	public function close_message( $key ) {
-		$errors = array();
-		$keys = get_site_option( AI1WM_MESSAGES );
-		if ( isset( $keys[ $key ] ) ) {
-			// Deactivate message from the list
-			$keys[ $key ] = false;
-
-			// Update keys
-			if ( ! update_site_option( AI1WM_MESSAGES, $keys ) ) {
-				$errors[] = 'Something went wrong! Please try again later.';
+	public static function get( $type ) {
+		$message = null;
+		if ( ( $messages = get_option( AI1WM_MESSAGES, array() ) ) ) {
+			if ( isset( $messages[ $type ] ) && ( $message = $messages[ $type ] ) ) {
+				unset( $messages[ $type ] );
 			}
-		} else {
-			$errors[] = 'Message key does not exist in the list.';
+
+			// Set messages
+			update_option( AI1WM_MESSAGES, $messages );
 		}
 
-		return array( 'errors' => $errors );
+		return $message;
 	}
 }

@@ -1,7 +1,6 @@
 <?php
-
 /**
- * Copyright (C) 2014 ServMask Inc.
+ * Copyright (C) 2014-2019 ServMask Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,38 +22,77 @@
  * ███████║███████╗██║  ██║ ╚████╔╝ ██║ ╚═╝ ██║██║  ██║███████║██║  ██╗
  * ╚══════╝╚══════╝╚═╝  ╚═╝  ╚═══╝  ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'Kangaroos cannot jump here' );
+}
+
 class Ai1wm_Feedback_Controller {
 
-	public static function leave_feedback() {
-		// Set Type
+	public static function feedback( $params = array() ) {
+
+		// Set params
+		if ( empty( $params ) ) {
+			$params = stripslashes_deep( $_POST );
+		}
+
+		// Set secret key
+		$secret_key = null;
+		if ( isset( $params['secret_key'] ) ) {
+			$secret_key = trim( $params['secret_key'] );
+		}
+
+		// Set type
 		$type = null;
-		if ( isset( $_POST['type'] ) ) {
-			$type = trim( $_POST['type'] );
+		if ( isset( $params['ai1wm_type'] ) ) {
+			$type = trim( $params['ai1wm_type'] );
 		}
 
-		// Set E-mail
+		// Set e-mail
 		$email = null;
-		if ( isset( $_POST['email'] ) ) {
-			$email = trim( $_POST['email'] );
+		if ( isset( $params['ai1wm_email'] ) ) {
+			$email = trim( $params['ai1wm_email'] );
 		}
 
-		// Set Message
+		// Set message
 		$message = null;
-		if ( isset( $_POST['message'] ) ) {
-			$message = trim( $_POST['message'] );
+		if ( isset( $params['ai1wm_message'] ) ) {
+			$message = trim( $params['ai1wm_message'] );
 		}
 
-		// Set Terms
+		// Set terms
 		$terms = false;
-		if ( isset( $_POST['terms'] ) ) {
-			$terms = (bool) $_POST['terms'];
+		if ( isset( $params['ai1wm_terms'] ) ) {
+			$terms = (bool) $params['ai1wm_terms'];
 		}
 
-		// Send Feedback
-		$model  = new Ai1wm_Feedback;
-		$result = $model->leave_feedback( $type, $email, $message, $terms );
+		try {
+			// Ensure that unauthorized people cannot access feedback action
+			ai1wm_verify_secret_key( $secret_key );
+		} catch ( Ai1wm_Not_Valid_Secret_Key_Exception $e ) {
+			exit;
+		}
 
-		echo json_encode( $result );
+		$extensions = Ai1wm_Extensions::get();
+
+		// Exclude File Extension
+		if ( defined( 'AI1WMTE_PLUGIN_NAME' ) ) {
+			unset( $extensions[ AI1WMTE_PLUGIN_NAME ] );
+		}
+
+		$purchases = array();
+		foreach ( $extensions as $extension ) {
+			if ( ( $uuid = get_option( $extension['key'] ) ) ) {
+				$purchases[] = $uuid;
+			}
+		}
+
+		$model = new Ai1wm_Feedback;
+
+		// Send feedback
+		$errors = $model->add( $type, $email, $message, $terms, implode( PHP_EOL, $purchases ) );
+
+		echo json_encode( array( 'errors' => $errors ) );
 		exit;
 	}
 }
